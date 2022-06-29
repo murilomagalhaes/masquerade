@@ -1,0 +1,30 @@
+{
+    "name": "murilomagalhaes/masquerade",
+    "description": "Masquearde is a library with a handful of methods to help you work with text manipulation.",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "library",
+        "regex",
+        "masking",
+        "string"
+    ],
+    "autoload": {
+        "psr-4": {
+            "Masquerade\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Murilo M",
+            "email": "murilomagalhaes@outlook.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require-dev": {
+        "phpstan/phpstan": "^1.8"
+    },
+    "require": {
+        "php": "^7.4|8.*"
+    }
+}
