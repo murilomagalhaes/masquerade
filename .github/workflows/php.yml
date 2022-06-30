@@ -1,4 +1,4 @@
-name: CI
+name: PHP Composer
 
 on:
   push:
@@ -31,10 +31,3 @@ jobs:
 
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress
-
-    - name: PHPStan (php-actions)
-      uses: php-actions/phpstan@v3
-      with:
-        configuration: src/phpstan.neon
-        path: src/
-
