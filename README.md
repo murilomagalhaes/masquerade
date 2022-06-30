@@ -1,13 +1,13 @@
 
-<div style="text-align: center">
-<h1 style="margin-bottom: 2px">🦝 Masquerade</h1> 
+<div align="center">
+<h1 style="margin-bottom: 0px">🦝 Masquerade</h1> 
 <span>A PHP Text Manipulation Library</span>
 </div>
 
-<hr>
+<br></br>
+
 
 **Masquearde is a library with a handful of methods to help you work with text manipulation, so you (hopefully) don't need to google regex expressions for the thousandth time. It is intended to manipulate short strings such as form inputs and alike, even providing masking/formatting methods.**
-
 
 
 ## Requirements
@@ -24,7 +24,6 @@ use Masquerade\Masquerade
 - Use the `set()` method to start chaining filters, masks, and/or whatever other methods available
 ``` php
 Masquerade::set("Phone: (Brazil) +55 61999995555'")->only('numbers')->mask('## (##) #####-####')->getText();
-
 // Returns: 55 (61) 99999-5555
 ```
 
@@ -47,15 +46,12 @@ Masquerade::set("Assistant (to the) regional manager")->between('(', ')')->getTe
 - Masking | Formatting 
 ``` php
 Masquerade::set("Phone: (Brazil) +55 61999995555'")->only('numbers')->mask('## (##) #####-####')->getText();
-
 // Returns: "55 (61) 99999-5555"
 
 Masquerade::set("00011122234")->only('numbers')->mask('###.###.###-##')->getText();
 
 // Returns: "000.111.222-34"
 ```
-
-
 
 ## Available Methods
 - `set(string $text): Masquerade` Creates a new Masquerade instance, and defines the text string to be used by the chained methods;
@@ -73,10 +69,7 @@ Masquerade::set("00011122234")->only('numbers')->mask('###.###.###-##')->getText
 - 'numbers'
 - 'whitespaces'
 
-
-
-
-## To de implemented
+## To be implemented
 - `removeAccents()` method
 - `without_accents` filter
 
