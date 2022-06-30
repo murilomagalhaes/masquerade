@@ -11,6 +11,6 @@ jobs:
 
       - name: PHPStan Static Analysis
         uses: php-actions/phpstan@v3
-        level: 9
         with:
+          level: 9
           path: src/ 
