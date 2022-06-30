@@ -33,7 +33,7 @@ jobs:
       run: composer install --prefer-dist --no-progress
 
     - name: PHPStan (php-actions)
-      uses: php-actions/phpstan@v
+      uses: php-actions/phpstan@v3
       with:
         configuration: src/phpstan.neon
         path: src/
