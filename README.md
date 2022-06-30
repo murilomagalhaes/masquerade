@@ -2,13 +2,17 @@
 <div align="center">
 <h1 style="margin-bottom: 0px">🦝 Masquerade</h1> 
 <span>A PHP Text Manipulation Library</span>
-</div>
 
 <br></br>
+
+[![Static Analisys (PHP-STAN)](https://github.com/murilomagalhaes/masquerade/actions/workflows/static_analysis.yml/badge.svg)](https://github.com/murilomagalhaes/masquerade/actions/workflows/static_analysis.yml)
 
 
 **Masquearde is a library with a handful of methods to help you work with text manipulation, so you (hopefully) don't need to google regex expressions for the thousandth time. It is intended to manipulate short strings such as form inputs and alike, even providing masking/formatting methods.**
 
+</div>
+
+<hr></hr>
 
 ## Requirements
 `PHP: ^7.4|8.*`
