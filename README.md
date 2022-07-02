@@ -51,11 +51,11 @@ Masquerade::set("Assistant (to the) regional manager")
 
 Masquerade::set("Hello, Universe")
     ->strip('Hello,')
-    ->getText(), // Returns: "Universe"
+    ->getText(); // Returns: "Universe"
 
 Masquerade::set("Hablo Español y Português")
     ->removeAccents()
-    ->getText(), // Returns: "Hablo Espanol y Portugues"
+    ->getText(); // Returns: "Hablo Espanol y Portugues"
 ```
 
 - Masking | Formatting 
