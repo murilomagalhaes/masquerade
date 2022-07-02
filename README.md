@@ -7,7 +7,7 @@
 
 [![Static Analisys (PHP-STAN)](https://github.com/murilomagalhaes/masquerade/actions/workflows/static_analysis.yml/badge.svg)](https://github.com/murilomagalhaes/masquerade/actions/workflows/static_analysis.yml)
 
-**Masquearde is a library with a handful of methods to help you work with text manipulation, so you (hopefully) don't need to google regex expressions for the thousandth time. It is intended to manipulate short strings such as form inputs and alike, even providing masking/formatting methods.**
+**Masquerade is a library with a handful of methods to help you work with text manipulation, so you (hopefully) don't need to google regex expressions for the thousandth time. It is intended to manipulate short strings such as form inputs and alike, even providing masking/formatting methods.**
 
 <hr>
 
@@ -26,8 +26,10 @@ use Masquerade\Masquerade
 ```
 - Use the `set()` method to start chaining filters, masks, and/or whatever other methods available
 ``` php
-Masquerade::set("Phone: (Brazil) +55 61999995555'")->only('numbers')->mask('## (##) #####-####')->getText();
-// Returns: 55 (61) 99999-5555
+Masquerade::set("Phone: (Brazil) +55 61999995555'")
+    ->only('numbers')
+    ->mask('## (##) #####-####')
+    ->getText(); // Returns: 55 (61) 99999-5555
 ```
 
 ## Examples
@@ -35,27 +37,63 @@ Masquerade::set("Phone: (Brazil) +55 61999995555'")->only('numbers')->mask('## (
 - Filtering
 ``` php
 
-Masquerade::set("I got 99 problemas but regex ain't one!")->only('letters', 'whitespaces')->getText();
-// Returns: "I got problems but regex aint one!"
+Masquerade::set("I got 99 problemas but regex ain't one!")
+    ->only('letters', 'whitespaces')
+    ->getText(); // Returns: "I got problems but regex aint one!"
 
-Masquerade::set("Phone: +55 00 99999-5555")->only('numbers')->getText();
-// Returns "5500999995555"
+Masquerade::set("Phone: +55 00 99999-5555")
+    ->only('numbers')
+    ->getText(); // Returns "5500999995555"
 
-Masquerade::set("Assistant (to the) regional manager")->between('(', ')')->getText();
-// Returns "to the"
+Masquerade::set("Assistant (to the) regional manager")
+    ->between('(', ')')
+    ->getText(); // Returns "to the"
 
-Masquerade::set("Hello, Universe")->removeAccents()->strip('Hello,')->getText(),
-// Returns: "Universe"
+Masquerade::set("Hello, Universe")
+    ->strip('Hello,')
+    ->getText(), // Returns: "Universe"
+
+Masquerade::set("Hablo Español y Português")
+    ->removeAccents()
+    ->getText(), // Returns: "Hablo Espanol y Portugues"
 ```
 
 - Masking | Formatting 
 ``` php
-Masquerade::set("Phone: (Brazil) +55 00999995555'")->only('numbers')->mask('## (##) #####-####')->getText();
-// Returns: "55 (00) 99999-5555"
+Masquerade::set("Phone: (Brazil) +55 00999995555'")
+    ->only('numbers')
+    ->mask('## (##) #####-####')
+    ->getText(); // Returns: "55 (00) 99999-5555"
 
-Masquerade::set("00011122234")->only('numbers')->mask('###.###.###-##')->getText();
-// Returns: "000.111.222-34"
+Masquerade::set("00011122234") 
+    ->only('numbers')
+    ->mask('###.###.###-##')
+    ->getText(); // Returns: "000.111.222-34"
 ```
+
+- Custom methods (Macros)
+``` php
+Masquerade::macro('maskAsPhone', function($instance){
+    return $instance->only('numbers')->mask('(##) #####-####');
+});
+
+Masquerade::set('Number: 00999995555')
+    ->maskAsPhone()
+    ->getText(); // Returns (00) 99999-5555
+```
+
+- Getters
+
+```php
+$text = Masquerade::set('YMCA');
+
+$text->mask('#-#-#-#');
+
+$text->getText(); // Returns Y-M-C-A
+$text->getUnmaskedText(); // Returns YMCA
+```
+
+
 
 ## Available Methods
 
@@ -69,6 +107,7 @@ Masquerade::set("00011122234")->only('numbers')->mask('###.###.###-##')->getText
 | `mask(string $pattern): Masquerade`| Applies the defined pattern to the text string |
 | `format(string $pattern): Masquerade` | Alias to the mask method |
 | `trim(): Masquerade` | Removes trailing and multiple spaces/tabs from the text string <br>(Method always aplied on class __toString() and getText() methods)|
+| `static::macro(string $name, callable $callback): void`| Defines a macro/custom method |
 | `getText(): string` | Returns the text string |
 | `getOriginalText(): string` | Returns the text string before on it's original state |
 | `getUnmaskedText(): string` | Returns the text string before maskking |

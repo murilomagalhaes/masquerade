@@ -8,6 +8,12 @@ class Masquerade extends StringHandler
 {
     use RegexHelpers;
 
+    /**
+     * Macro functions array
+     * @var array<string,callable>
+     */
+    public static array $macros = [];
+
     public function __construct(string $text)
     {
         parent::__construct($text);
@@ -33,12 +39,22 @@ class Masquerade extends StringHandler
     }
 
     /**
-     * Returns the text string before on it's original state
+     * Returns the text string on it's original state
      * @return string
      */
     public function getOriginalText(): string
     {
         return $this->original_text ?? '';
+    }
+
+    /**
+     * Defines macro function.
+     * @param string $name Macro function's name
+     * @param callable $macro Callback function 
+     */
+    public static function macro(string $name, callable $macro): void
+    {
+        static::$macros[$name] = $macro;
     }
 
     /**
@@ -51,9 +67,28 @@ class Masquerade extends StringHandler
         return $this->text;
     }
 
-    public function __toString()
+    /**
+     * Returns text string on current state
+     * @return string Text string
+     */
+    public function __toString(): string
     {
         $this->trim();
         return $this->text;
+    }
+
+    /**
+     * Override function calls to search for defined macro functions
+     * @param string $function Function name
+     * @param mixed $arguments Function's arguments
+     * @return callable|self|string
+     */
+    public function __call(string $function, mixed $arguments): callable|self|string
+    {
+        if (isset(static::$macros[$function])) {
+            return static::$macros[$function]($this);
+        }
+
+        return $this->$function($arguments);
     }
 }
