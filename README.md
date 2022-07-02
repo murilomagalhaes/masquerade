@@ -17,7 +17,7 @@
 
   
 ## Instalation
- `composer require murilomagalhaes\masquerade`
+ `composer require murilomagalhaes/masquerade`
 
 ## Usage
 - Once the package is installed, call it on your working file. 
