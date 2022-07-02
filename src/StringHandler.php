@@ -85,10 +85,11 @@ class StringHandler
 
     /**
      * Removes trailing and multiple spaces/tabs from the string
+     * @return self
      */
     public function trim(): self
     {
-        $this->text = trim(preg_replace("/\s+/", ' ', $this->text));
+        $this->text = trim(preg_replace("/\s+/", ' ', $this->text) ?? '');
         return $this;
     }
 
