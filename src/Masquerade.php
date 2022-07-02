@@ -6,8 +6,6 @@ use Masquerade\Traits\RegexHelpers;
 
 class Masquerade extends StringHandler
 {
-    use RegexHelpers;
-
     /**
      * Macro functions array
      * @var array<string,callable>

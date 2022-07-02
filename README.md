@@ -29,7 +29,7 @@ use Masquerade\Masquerade
 Masquerade::set("Phone: (Brazil) +55 61999995555'")
     ->only('numbers')
     ->mask('## (##) #####-####')
-    ->getText(); // Returns: 55 (61) 99999-5555
+    ->getText(); // Returns: "55 (61) 99999-5555"
 ```
 
 ## Examples
@@ -79,7 +79,7 @@ Masquerade::macro('maskAsPhone', function($instance){
 
 Masquerade::set('Number: 00999995555')
     ->maskAsPhone()
-    ->getText(); // Returns (00) 99999-5555
+    ->getText(); // Returns: "(00) 99999-5555"
 ```
 
 - Getters
@@ -89,8 +89,8 @@ $text = Masquerade::set('YMCA');
 
 $text->mask('#-#-#-#');
 
-$text->getText(); // Returns Y-M-C-A
-$text->getUnmaskedText(); // Returns YMCA
+$text->getText(); // Returns: "Y-M-C-A"
+$text->getUnmaskedText(); // Returns: "YMCA"
 ```
 
 
@@ -111,3 +111,7 @@ $text->getUnmaskedText(); // Returns YMCA
 | `getText(): string` | Returns the text string |
 | `getOriginalText(): string` | Returns the text string before on it's original state |
 | `getUnmaskedText(): string` | Returns the text string before maskking |
+
+## Coming soon
+- Punctuation filter to `only()` method.
+- Add character filter exceptions to `only()` method.
