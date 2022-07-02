@@ -11,7 +11,7 @@ trait RegexHelpers
 
     public function match_letters(): string
     {
-        return "A-Za-zÀ-ú";
+        return "A-Za-zÀ-ÿ";
     }
 
     public function match_whitespaces(): string
