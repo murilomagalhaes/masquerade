@@ -94,23 +94,23 @@ $text->getText(); // Retorna: "Y-M-C-A"
 $text->getUnmaskedText(); // Retorna: "YMCA"
 ```
 
-## Available Methods
+## Métodos disponíveis
 
-| Method Signature | Description | 
+| Assinatura | Descrição | 
 |---|---|
-| `set(string $text): Masquerade` | Creates a new Masquerade instance, and defines the text string to be used by the chained methods. |
-| `only(...$filter_types): Masquerade` | Removes characters NOT defined on the `$filter_types` parameter. Available filters: `'letters'`, `'numbers'` and `'whitespaces'` |
-| `strip(...$characters): Masquerade` | Removes the defined characters from the text string |
-| `between(string $before, string $after): Masquerade`  | Removes everything outside the defined `$before` and `$after` parameters;  |
-| `removeAccents(): Masquerade`| Remove string's accents. <br>(acute\|cedil\|circ\|grave\|lig\|orn\|ring\|slash\|th\|tilde\|uml\|)
-| `mask(string $pattern): Masquerade`| Applies the defined pattern to the text string |
-| `format(string $pattern): Masquerade` | Alias to the mask method |
-| `trim(): Masquerade` | Removes trailing and multiple spaces/tabs from the text string <br>(Method always aplied on class __toString() and getText() methods)|
-| `static::macro(string $name, callable $callback): void`| Defines a macro/custom method |
-| `getText(): string` | Returns the text string |
-| `getOriginalText(): string` | Returns the text string before on it's original state |
-| `getUnmaskedText(): string` | Returns the text string before maskking |
+| `set(string $text): Masquerade` | Cria uma nova instância da classe Masquerade, e define a string do texto que será utilizada pelos métodos seguintes. |
+| `only(...$filter_types): Masquerade` | Remove os caracteres de tipo NÃO informados no parametro `$filter_types`. Filtros disponíveis: `'letters'`, `'numbers'` e `'whitespaces'` |
+| `strip(...$characters): Masquerade` | Remove os caracteres definidos por parametro |
+| `between(string $before, string $after): Masquerade`  | Remove tudo que esteja fora das strings dos parametros parametros `$before` e `$after` |
+| `removeAccents(): Masquerade`|Remove os acentos da string. <br>(acute\|cedil\|circ\|grave\|lig\|orn\|ring\|slash\|th\|tilde\|uml\|)
+| `mask(string $pattern): Masquerade`| Aplica o padrão definido no texto da string |
+| `format(string $pattern): Masquerade` | Apelido para o método mask() |
+| `trim(): Masquerade` | Remove espaços do inicio\|final, além de espaços duplicados e tabs. <br>(Método é sempre aplicado no __toString() e getText() |
+| `static::macro(string $name, callable $callback): void`| Define um método personalizado (Macro) |
+| `getText(): string` | Retorna o texto da string |
+| `getOriginalText(): string` | Retorna o texto da string em seu estado original |
+| `getUnmaskedText(): string` | Retorna o texto da string antes de ele ter sido formatado. |
 
-## Coming soon
-- Punctuation filter to `only()` method.
-- Add character filter exceptions to `only()` method.
+## Em breve
+- Filtro de pontuação no método `only()`.
+- Add exceções de caracteres para filtros no método `only()`.
