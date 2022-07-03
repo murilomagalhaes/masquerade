@@ -7,7 +7,7 @@
 
 [![Static Analisys (PHP-STAN)](https://github.com/murilomagalhaes/masquerade/actions/workflows/static_analysis.yml/badge.svg)](https://github.com/murilomagalhaes/masquerade/actions/workflows/static_analysis.yml)
 
-*Clique **[aqui](README_PT.md)** caso queira acessar a versão em **Português!** deste arquivo.* 🇵🇹 🇧🇷
+*Clique **[aqui](README_PT.md)** caso queira acessar a versão em **Português** deste arquivo!* 🇵🇹 🇧🇷
 
 **Masquerade is a library with a handful of methods to help you work with text manipulation, so you (hopefully) don't need to google regex expressions for the thousandth time. It is intended to manipulate short strings such as form inputs and alike, even providing masking/formatting methods.**
 
