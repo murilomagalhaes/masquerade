@@ -2,8 +2,6 @@
 
 namespace Masquerade;
 
-use Masquerade\Traits\RegexHelpers;
-
 class Masquerade extends StringHandler
 {
     /**

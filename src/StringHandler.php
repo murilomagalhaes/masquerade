@@ -2,12 +2,10 @@
 
 namespace Masquerade;
 
-use Masquerade\Traits\RegexHelpers;
+use Masquerade\Helpers\RegexHelper;
 
 class StringHandler
 {
-    use RegexHelpers;
-
     /**
      * Text string that methods will be applied
      * @var string $text
@@ -36,7 +34,7 @@ class StringHandler
     public function __construct(string $text)
     {
         $this->text = $this->unmasked_text = $this->original_text = $text;
-        $this->excpected_filter_types = ['numbers', 'letters', 'whitespaces'];
+        $this->excpected_filter_types = ['numbers', 'letters', 'whitespaces'];   
     }
 
     /**
@@ -55,8 +53,8 @@ class StringHandler
         $regex = '';
 
         foreach ($filter_types as $filter) {
-            $match_filter_trait_function = "match_$filter";
-            $regex .= $this->$match_filter_trait_function();
+            $match_filter_helper_function = "match_$filter";
+            $regex .= RegexHelper::$match_filter_helper_function();
         }
 
         $matches = [];
@@ -102,7 +100,7 @@ class StringHandler
     public function between(string $before, string $after): self
     {
         $matches = [];
-        $regex = $this->match_between($before, $after);
+        $regex = RegexHelper::match_between($before, $after);
         preg_match_all("/$regex/", $this->text, $matches);
 
         $this->text = implode('', $matches[0]);

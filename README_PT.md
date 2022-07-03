@@ -1,86 +1,86 @@
 <div align="center">
 <h1 style="margin-bottom: 0px">🦝 Masquerade</h1> 
-<span>A PHP Text Manipulation Library</span>
+<span>Biblioteca de manipulação de texto para PHP</span>
 </div>
 
 <br>
 
 [![Static Analisys (PHP-STAN)](https://github.com/murilomagalhaes/masquerade/actions/workflows/static_analysis.yml/badge.svg)](https://github.com/murilomagalhaes/masquerade/actions/workflows/static_analysis.yml)
 
-*Clique **[aqui](README_PT.md)** caso queira acessar a versão em **Português!** deste arquivo.* 🇵🇹 🇧🇷
 
-**Masquerade is a library with a handful of methods to help you work with text manipulation, so you (hopefully) don't need to google regex expressions for the thousandth time. It is intended to manipulate short strings such as form inputs and alike, even providing masking/formatting methods.**
+**Masquerade é uma biblioteca com um punhado de métodos que te ajudam a trabalhar com manipulação de texto, para que você não precise pesquisar por expressões resgulares pela milésima vez (Eu espero). Sua intenção é lidar com strings curtas, como inputs de formulários e coisas do tipo, oferecendo até métodos para máscaras/formatações.**
 
+<hr>
 
-## Requirements
+## Requisitos
 - `PHP: ^7.4|8.*`
 - `Composer`
 
   
-## Instalation
+## Instalação
  `composer require murilomagalhaes/masquerade`
 
-## Usage
-- Once the package is installed, call it on your working file. 
+## Uso
+- Uma vez que o pacote foi instalado, chame-o no seu arquivo desejado.
 ``` php
 use Masquerade\Masquerade
 ```
-- Use the `set()` method to start chaining filters, masks, and/or whatever other methods available
+- Use o método `set()` para começar a emendar filtros, máscaras, e/ou qualquer outro método disponível.
 ``` php
 Masquerade::set("Phone: (Brazil) +55 61999995555'")
     ->only('numbers')
     ->mask('## (##) #####-####')
-    ->getText(); // Returns: "55 (61) 99999-5555"
+    ->getText(); // Retorna: "55 (61) 99999-5555"
 ```
 
-## Examples
+## Exemplos
 
-- Filtering
+- Filtros
 ``` php
 
-Masquerade::set("I got 99 problems but regex ain't one!")
+Masquerade::set("Tenho 99 problemas, mas regex não é um deles!")
     ->only('letters', 'whitespaces')
-    ->getText(); // Returns: "I got problems but regex aint one!"
+    ->getText(); // Retorna: "Tenho problemas mas regex não é um deles"
 
 Masquerade::set("Phone: +55 00 99999-5555")
     ->only('numbers')
-    ->getText(); // Returns "5500999995555"
+    ->getText(); // Retorna "5500999995555"
 
 Masquerade::set("Assistant (to the) regional manager")
     ->between('(', ')')
-    ->getText(); // Returns "to the"
+    ->getText(); // Retorna "to the"
 
 Masquerade::set("Hello, Universe")
     ->strip('Hello,')
-    ->getText(); // Returns: "Universe"
+    ->getText(); // Retorna: "Universe"
 
 Masquerade::set("Hablo Español y Português")
     ->removeAccents()
-    ->getText(); // Returns: "Hablo Espanol y Portugues"
+    ->getText(); // Retorna: "Hablo Espanol y Portugues"
 ```
 
-- Masking | Formatting 
+- Máscaras | Formatações
 ``` php
 Masquerade::set("Phone: (Brazil) +55 00999995555'")
     ->only('numbers')
     ->mask('## (##) #####-####')
-    ->getText(); // Returns: "55 (00) 99999-5555"
+    ->getText(); // Retorna: "55 (00) 99999-5555"
 
 Masquerade::set("00011122234") 
     ->only('numbers')
     ->mask('###.###.###-##')
-    ->getText(); // Returns: "000.111.222-34"
+    ->getText(); // Retorna: "000.111.222-34"
 ```
 
-- Custom methods (Macros)
+- Métodos customizados (Macros)
 ``` php
-Masquerade::macro('maskAsPhone', function($instance){
+Masquerade::macro('mascaraDeTelefone', function($instance){
     return $instance->only('numbers')->mask('(##) #####-####');
 });
 
 Masquerade::set('Number: 00999995555')
-    ->maskAsPhone()
-    ->getText(); // Returns: "(00) 99999-5555"
+    ->mascaraDeTelefone()
+    ->getText(); // Retorna: "(00) 99999-5555"
 ```
 
 - Getters
@@ -90,11 +90,9 @@ $text = Masquerade::set('YMCA');
 
 $text->mask('#-#-#-#');
 
-$text->getText(); // Returns: "Y-M-C-A"
-$text->getUnmaskedText(); // Returns: "YMCA"
+$text->getText(); // Retorna: "Y-M-C-A"
+$text->getUnmaskedText(); // Retorna: "YMCA"
 ```
-
-
 
 ## Available Methods
 
