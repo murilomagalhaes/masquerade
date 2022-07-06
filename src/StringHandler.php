@@ -25,6 +25,12 @@ class StringHandler
     public string $original_text;
 
     /**
+     * Characters to keep \ ignore while filtering
+     * @var string $characters_to_keep
+     */
+    public string $characters_to_ignore = '';
+
+    /**
      * Excpected filter types. ['numbers', 'letters', 'whitespaces']
      * @var array<int,string> $excpected_filter_types
      */
@@ -34,7 +40,17 @@ class StringHandler
     public function __construct(string $text)
     {
         $this->text = $this->unmasked_text = $this->original_text = $text;
-        $this->excpected_filter_types = ['numbers', 'letters', 'whitespaces'];   
+        $this->excpected_filter_types = ['numbers', 'letters', 'whitespaces', 'punctuation'];
+    }
+
+    /**
+     * The defined characters won't be removed by the only(). Must be called BEFORE the only() method to take effect
+     * @param string $character
+     */
+    public function ignore(string ...$character): self
+    {
+        $this->characters_to_ignore = preg_quote(implode('', $character));
+        return $this;
     }
 
     /**
@@ -58,7 +74,7 @@ class StringHandler
         }
 
         $matches = [];
-        preg_match_all("/[$regex]/", $this->text, $matches);
+        preg_match_all("/[$regex{$this->characters_to_ignore}]/", $this->text, $matches);
 
         $this->text = implode('', $matches[0]);
 

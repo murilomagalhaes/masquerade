@@ -23,4 +23,9 @@ final class RegexHelper
     {
         return "\\$before(.*?)\\$after";
     }
+
+    public static function match_punctuation(): string
+    {
+        return ",.:;?¿!¡\-";
+    }
 }

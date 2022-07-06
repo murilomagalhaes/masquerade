@@ -54,6 +54,11 @@ Masquerade::set("Hello, Universe")
     ->strip('Hello,')
     ->getText(); // Returns: "Universe"
 
+Masquerade::set("I got 998 problems, but regex ain't one!")
+    ->ignore('8')
+    ->only('letters', 'whitespaces') // Note that the "numbers" type is missing, so all numbers should be filtered out.
+    ->getText(), // Returns: "I got 8 problems but regex aint one!". The '8' was kept by the ignore() method
+
 Masquerade::set("Hablo Español y Português")
     ->removeAccents()
     ->getText(); // Returns: "Hablo Espanol y Portugues"
@@ -101,10 +106,11 @@ $text->getUnmaskedText(); // Returns: "YMCA"
 | Method Signature | Description | 
 |---|---|
 | `set(string $text): Masquerade` | Creates a new Masquerade instance, and defines the text string to be used by the chained methods. |
-| `only(...$filter_types): Masquerade` | Removes character types NOT defined on the `$filter_types` parameter. Available filters: `'letters'`, `'numbers'` and `'whitespaces'` |
+| `only(...$filter_types): Masquerade` | Keeps only the character types defined on the `$filter_types` parameter. Available types: `'letters'`, `'numbers'`, `'punctuation'` and `'whitespaces'` <br> The following characters are understood as punctuation `, . : ; ? ¿ ! ¡ - ` |
+|`ignore(... $character)`| The defined characters won't be removed by the `only()`. Must be called BEFORE the `only()` method to take effect |
 | `strip(...$characters): Masquerade` | Removes the defined characters from the text string |
-| `between(string $before, string $after): Masquerade`  | Removes everything outside the defined characters on the `$before` and `$after` parameters;  |
-| `removeAccents(): Masquerade`| Remove string's accents. <br>(acute\|cedil\|circ\|grave\|lig\|orn\|ring\|slash\|th\|tilde\|uml\|)
+| `between(string $before, string $after): Masquerade`  | Keeps only the characters between the `$before` and `$after` parameters;  |
+| `removeAccents(): Masquerade`| Removes all character's accents. <br>(acute\|cedil\|circ\|grave\|lig\|orn\|ring\|slash\|th\|tilde\|uml\|)
 | `mask(string $pattern): Masquerade`| Applies the defined pattern to the text string |
 | `format(string $pattern): Masquerade` | Alias to the mask method |
 | `trim(): Masquerade` | Removes trailing and multiple spaces/tabs from the text string <br>(Method always aplied on class __toString() and getText() methods)|
@@ -112,7 +118,3 @@ $text->getUnmaskedText(); // Returns: "YMCA"
 | `getText(): string` | Returns the text string |
 | `getOriginalText(): string` | Returns the text string on it's original state |
 | `getUnmaskedText(): string` | Returns the text string before maskking |
-
-## Coming soon
-- Punctuation filter to `only()` method.
-- Add character filter exceptions to `only()` method.

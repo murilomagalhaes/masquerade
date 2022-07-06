@@ -54,6 +54,11 @@ Masquerade::set("Hello, Universe")
     ->strip('Hello,')
     ->getText(); // Retorna: "Universe"
 
+Masquerade::set("Tenho 998 problemas, mas regex não é um deles!")
+->ignore('8')
+->only('letters', 'whitespaces') // Note que o tipo 'numbers' não foi informado, então todos os numeros deveriam ter sido removidos.
+->getText(), // Retorna: "Tenho 8 problemas mas regex não é um deles". O '8' foi mantido pelo método ignore()
+
 Masquerade::set("Hablo Español y Português")
     ->removeAccents()
     ->getText(); // Retorna: "Hablo Espanol y Portugues"
@@ -98,8 +103,9 @@ $text->getUnmaskedText(); // Retorna: "YMCA"
 
 | Assinatura | Descrição | 
 |---|---|
-| `set(string $text): Masquerade` | Cria uma nova instância da classe Masquerade, e define a string do texto que será utilizada pelos métodos seguintes. |
-| `only(...$filter_types): Masquerade` | Remove os caracteres de tipo NÃO informados no parametro `$filter_types`. Filtros disponíveis: `'letters'`, `'numbers'` e `'whitespaces'` |
+|`set(string $text): Masquerade` | Cria uma nova instância da classe Masquerade, e define a string do texto que será utilizada pelos métodos seguintes. |
+| `only(...$filter_types): Masquerade` | Remove os caracteres de tipo NÃO informados no parametro `$filter_types`. Filtros disponíveis: `'letters'`, `'numbers'`, `'punctuation'` e `'whitespaces'` <br> Os seguintes caracteres são entendidos como punctuation (pontuação) `, . : ; ? ¿ ! ¡ - `  |
+|`ignore(... $character)`| Os caracteres informados não serão removidos pelo método  `only()`. Deve ser chamado ANTES do método `only()` para funcionar |
 | `strip(...$characters): Masquerade` | Remove os caracteres definidos por parametro |
 | `between(string $before, string $after): Masquerade`  | Remove tudo que esteja fora das strings dos parametros parametros `$before` e `$after` |
 | `removeAccents(): Masquerade`|Remove os acentos da string. <br>(acute\|cedil\|circ\|grave\|lig\|orn\|ring\|slash\|th\|tilde\|uml\|)
@@ -110,7 +116,3 @@ $text->getUnmaskedText(); // Retorna: "YMCA"
 | `getText(): string` | Retorna o texto da string |
 | `getOriginalText(): string` | Retorna o texto da string em seu estado original |
 | `getUnmaskedText(): string` | Retorna o texto da string antes de ele ter sido formatado. |
-
-## Em breve
-- Filtro de pontuação no método `only()`.
-- Add exceções de caracteres para filtros no método `only()`.
