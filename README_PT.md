@@ -104,10 +104,10 @@ $text->getUnmaskedText(); // Retorna: "YMCA"
 | Assinatura | Descrição | 
 |---|---|
 |`set(string $text): Masquerade` | Cria uma nova instância da classe Masquerade, e define a string do texto que será utilizada pelos métodos seguintes. |
-| `only(...$filter_types): Masquerade` | Remove os caracteres de tipo NÃO informados no parametro `$filter_types`. Filtros disponíveis: `'letters'`, `'numbers'`, `'punctuation'` e `'whitespaces'` <br> Os seguintes caracteres são entendidos como punctuation (pontuação) `, . : ; ? ¿ ! ¡ - `  |
+| `only(...$filter_types): Masquerade` | Mantem apenas os tipo caracteres informados no parametro `$filter_types`. Tipos disponíveis: `'letters'`, `'numbers'`, `'punctuation'` e `'whitespaces'` <br> Os seguintes caracteres são entendidos como punctuation (pontuação) `, . : ; ? ¿ ! ¡ - `  |
 |`ignore(... $character)`| Os caracteres informados não serão removidos pelo método  `only()`. Deve ser chamado ANTES do método `only()` para funcionar |
 | `strip(...$characters): Masquerade` | Remove os caracteres definidos por parametro |
-| `between(string $before, string $after): Masquerade`  | Remove tudo que esteja fora das strings dos parametros parametros `$before` e `$after` |
+| `between(string $before, string $after): Masquerade`  | Mantem apenas os caracteres que estejam entre os parametros `$before` e `$after` |
 | `removeAccents(): Masquerade`|Remove os acentos da string. <br>(acute\|cedil\|circ\|grave\|lig\|orn\|ring\|slash\|th\|tilde\|uml\|)
 | `mask(string $pattern): Masquerade`| Aplica o padrão definido no texto da string |
 | `format(string $pattern): Masquerade` | Apelido para o método mask() |
