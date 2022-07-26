@@ -77,9 +77,9 @@ class Masquerade extends StringHandler
      * Override function calls to search for defined macro functions
      * @param string $function Function name
      * @param mixed $arguments Function's arguments
-     * @return callable|self|string
+     * @return mixed
      */
-    public function __call(string $function, mixed $arguments): callable|self|string
+    public function __call(string $function, mixed $arguments): mixed
     {
         if (isset(static::$macros[$function])) {
             return static::$macros[$function]($this);
