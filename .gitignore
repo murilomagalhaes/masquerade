@@ -2,3 +2,4 @@ vendor
 *.cache
 *.lock
 *.test.*
+test.php

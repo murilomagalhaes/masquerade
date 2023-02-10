@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Masquerade;
 
 class Masquerade extends StringHandler
@@ -18,29 +20,11 @@ class Masquerade extends StringHandler
     /**
      * Creates a new Masquerade instance, and defines the text string to be used by the chained methods;
      * @param string $text
-     * @return self
+     * @return Masquerade
      */
-    public static function set(string $text): self
+    public static function set(string $text): Masquerade
     {
         return new self($text);
-    }
-
-    /**
-     * Returns the text string before maskking
-     * @return string
-     */
-    public function getUnmaskedText(): string
-    {
-        return $this->unmasked_text ?? '';
-    }
-
-    /**
-     * Returns the text string on it's original state
-     * @return string
-     */
-    public function getOriginalText(): string
-    {
-        return $this->original_text ?? '';
     }
 
     /**
@@ -51,16 +35,6 @@ class Masquerade extends StringHandler
     public static function macro(string $name, callable $macro): void
     {
         static::$macros[$name] = $macro;
-    }
-
-    /**
-     * Returns the text string;
-     * @return string
-     */
-    public function getText(): string
-    {
-        $this->trim();
-        return $this->text;
     }
 
     /**
@@ -76,13 +50,14 @@ class Masquerade extends StringHandler
     /**
      * Override function calls to search for defined macro functions
      * @param string $function Function name
-     * @param mixed $arguments Function's arguments
-     * @return mixed
+     * @param array<int,callable> $arguments Function's arguments
+     * @return Masquerade
      */
-    public function __call(string $function, mixed $arguments): mixed
+    public function __call(string $function, array $arguments): Masquerade
     {
         if (isset(static::$macros[$function])) {
-            return static::$macros[$function]($this);
+            static::$macros[$function]($this);
+            return $this;
         }
 
         return $this->$function($arguments);

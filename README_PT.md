@@ -79,8 +79,11 @@ Masquerade::set("00011122234")
 
 - Métodos customizados (Macros)
 ``` php
-Masquerade::macro('mascaraDeTelefone', function($instance){
-    return $instance->only('numbers')->mask('(##) #####-####');
+
+use Masquerade\StringHandler;
+
+Masquerade::macro('mascaraDeTelefone', function(StringHandler $handler){
+    return $handler->only('numbers')->mask('(##) #####-####');
 });
 
 Masquerade::set('Number: 00999995555')

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Masquerade\Helpers;
 
 final class RegexHelper
@@ -14,7 +16,7 @@ final class RegexHelper
         return "A-Za-zÀ-ÿ";
     }
 
-    public static  function match_whitespaces(): string
+    public static function match_whitespaces(): string
     {
         return '\s';
     }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Masquerade;
 
 use Masquerade\Helpers\RegexHelper;
@@ -47,7 +49,7 @@ class StringHandler
      * The defined characters won't be removed by the only(). Must be called BEFORE the only() method to take effect
      * @param string $character
      */
-    public function ignore(string ...$character): self
+    public function ignore(string ...$character): StringHandler
     {
         $this->characters_to_ignore = preg_quote(implode('', $character));
         return $this;
@@ -56,9 +58,9 @@ class StringHandler
     /**
      * Removes characters not defined on the $filter_types parameter
      * @param string $filter_types Available types ['numbers', 'letters', 'whitespaces']
-     * @return self
+     * @return StringHandler
      */
-    public function only(string ...$filter_types): self
+    public function only(string ...$filter_types): StringHandler
     {
         $unexpected_filters = array_diff($filter_types, $this->excpected_filter_types);
 
@@ -89,9 +91,9 @@ class StringHandler
     /**
      * Removes the defined characters from the text string
      * @param string $characters Characters to be removed from the string 
-     * @return self
+     * @return StringHandler
      */
-    public function strip(string ...$characters): self
+    public function strip(string ...$characters): StringHandler
     {
         $this->text = str_replace($characters, '', $this->text);
         return $this;
@@ -99,9 +101,9 @@ class StringHandler
 
     /**
      * Removes trailing and multiple spaces/tabs from the string
-     * @return self
+     * @return StringHandler
      */
-    public function trim(): self
+    public function trim(): StringHandler
     {
         $this->text = trim(preg_replace("/\s+/", ' ', $this->text) ?? '');
         return $this;
@@ -111,9 +113,9 @@ class StringHandler
      * Remove characters outside the $before and $after parameters
      * @param string $before
      * @param string $after
-     * @return self
+     * @return StringHandler
      */
-    public function between(string $before, string $after): self
+    public function between(string $before, string $after): StringHandler
     {
         $matches = [];
         $regex = RegexHelper::match_between($before, $after);
@@ -128,9 +130,9 @@ class StringHandler
     /**
      * Returns the formated string based on the declared pattern.
      * @param string $pattern Ex: '####/##/##'
-     * @return self
+     * @return StringHandler
      */
-    public function format(string $pattern): self
+    public function format(string $pattern): StringHandler
     {
         $this->unmasked_text = $this->text;
 
@@ -149,18 +151,18 @@ class StringHandler
      * Alias for the format function.
      * Returns the formated string based on the declared pattern.
      * @param string $pattern Ex: '####/##/##'
-     * @return self
+     * @return StringHandler
      */
-    public function mask(string $pattern): self
+    public function mask(string $pattern): StringHandler
     {
         return $this->format($pattern);
     }
 
     /**
      * Remove accents acute|cedil|circ|grave|lig|orn|ring|slash|th|tilde|uml 
-     * @return self
+     * @return StringHandler
      */
-    public function removeAccents(): self
+    public function removeAccents(): StringHandler
     {
         $this->text = preg_replace(
             '~&([a-z]{1,2})(acute|cedil|circ|grave|lig|orn|ring|slash|th|tilde|uml);~i',
@@ -169,5 +171,33 @@ class StringHandler
         ) ?? '';
 
         return $this;
+    }
+
+    /**
+     * Returns the text string before maskking
+     * @return string
+     */
+    public function getUnmaskedText(): string
+    {
+        return $this->unmasked_text ?? '';
+    }
+
+    /**
+     * Returns the text string on it's original state
+     * @return string
+     */
+    public function getOriginalText(): string
+    {
+        return $this->original_text ?? '';
+    }
+
+    /**
+     * Returns the text string;
+     * @return string
+     */
+    public function getText(): string
+    {
+        $this->trim();
+        return $this->text;
     }
 }
