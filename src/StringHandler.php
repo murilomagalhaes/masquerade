@@ -137,7 +137,7 @@ class StringHandler
         $this->unmasked_text = $this->text;
 
         foreach (str_split($pattern) as $i => $char) {
-            if ($char !== '#') {
+            if ($char !== '#' && $char !== substr($this->unmasked_text, $i, 1)) {
                 $this->text = substr_replace($this->text, $char, $i, 0);
             }
         }
